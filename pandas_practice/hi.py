@@ -1,10 +1,9 @@
 
 # coding: utf-8
 
-# In[100]:
+# In[183]:
 
-classwords_list = ['Rate']
-groups = ['']
+groups = ['HIGHPI', 'CNFD','CNFDPI', 'INTL']
 classwords_dict1 = {'Rate':{ 
                             'HIGHPI':['Credit Bureau'],
                             'CNFD':['Basel','Federal','Credit']
@@ -48,23 +47,13 @@ df2 = classwords_DF['Logical_Name']
 df3 = classwords_DF[classwords_DF.Logical_Name.isin(classwords_list)]
 
 
-# In[107]:
+# In[141]:
 
 matched_list = []
-credit_bureau_list = []
 for i in df2:
     for j in classwords_dict.keys():
         if str(i).__contains__(j):
-            matched_list.append(i)
-        #print (classwords_dict[j])
-        for kk in matched_list:
-            for value in classwords_dict[j]:
-                if str(kk).__contains__(value):
-                    #print (kk)
-                    credit_bureau_list.append(kk)
-                        
-
-       
+            matched_list.append(i)        
 
 
 # In[108]:
@@ -72,19 +61,68 @@ for i in df2:
 result = classwords_DF[classwords_DF.Logical_Name.isin(matched_list)]
 
 
-# In[104]:
+# In[142]:
 
 len(matched_list)
 
 
-# In[110]:
+# In[175]:
 
-len(list(set(credit_bureau_list)))
+HIGHPI_Df = pd.DataFrame()
+highpi_list = []
+cnfd_list = []
 
 
 # In[101]:
 
 #result
+
+
+# In[182]:
+
+classwords_dict1.values()
+
+
+# In[184]:
+
+for i in groups:
+    for key, value in classwords_dict1.items():
+        if key == 'Rate':            
+            if i == 'HIGHPI':                
+                for jk in value[i]:                   
+                    for kkk in matched_list:
+                        if kkk.__contains__(jk):                            
+                            highpi_list.append(kkk)
+            elif i == 'CNFD':
+                for jk in value[i]:                   
+                    for kkk in matched_list:
+                        if kkk.__contains__(jk):                            
+                            cnfd_list.append(kkk)
+
+            
+        
+        
+    
+
+
+# In[177]:
+
+highpi_result = classwords_DF[classwords_DF.Logical_Name.isin(highpi_list)]
+
+
+# In[178]:
+
+cnfd_result = classwords_DF[classwords_DF.Logical_Name.isin(cnfd_list)]
+
+
+# In[179]:
+
+cnfd_list_result
+
+
+# In[180]:
+
+cnfd_list
 
 
 # In[ ]:
